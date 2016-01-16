@@ -83,15 +83,35 @@ public class BigBerthaLostWeightTeleOp extends BigBerthaTelemetry {
         if (gamepad2.guide) {
             if (game2config == 0) {
                 game2config = 1;
+                try {
+                    Thread.sleep(500);
+                } catch(InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
             }
             else if (game2config == 1) {
                 game2config = 2;
+                try {
+                    Thread.sleep(500);
+                } catch(InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
             }
             else if (game2config == 2) {
                 game2config = 3;
+                try {
+                    Thread.sleep(500);
+                } catch(InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
             }
             else {
                 game2config = 0;
+                try {
+                    Thread.sleep(500);
+                } catch(InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
             }
         }
         if (gamepad2.start) {
@@ -109,13 +129,35 @@ public class BigBerthaLostWeightTeleOp extends BigBerthaTelemetry {
         float sweeperPosition = 0.5f;
         float backSweeperPosition = 0.5f;
 
+        float liftUpScale = 0.0f;
+        float liftDownScale = 0.0f;
+        float chainHooksUpScale = 0.0f;
+        float chainHooksDownScale = 0.0f;
+        
         if (game1config == 0) {
             leftDrivePower = scaleMotorPower(-gamepad1.left_stick_y/8);
             rightDrivePower = scaleMotorPower(-gamepad1.right_stick_y/8);
+            if (gamepad1.right_bumper || gamepad1.left_bumper) {
+                chainHooksUpScale = scaleMotorPower(gamepad1.right_trigger);
+                clipMotorPositive(chainHooksUpScale = chainHooksUpScale / 4);
+                chainHooksDownScale = scaleMotorPower(-gamepad1.left_trigger);
+                clipMotorNegative(chainHooksDownScale = (chainHooksDownScale / 5) * 4);
+            }
+            if (gamepad1.right_bumper)
+                chainHooksPower = clipMotorPositive(chainHooksPower + chainHooksUpScale + chainHooksDownScale);
+            if (gamepad1.left_bumper)
+                chainHooksPower = clipMotorPositive(chainHooksPower + chainHooksUpScale + chainHooksDownScale);
+
+            if (gamepad1.right_bumper)
+                setChainHooksPower(chainHooksPower);
+            else if (gamepad1.left_bumper)
+                setChainHooksPower(-chainHooksPower);
+            else
+                setChainHooksPower (0);
         }
         if (game1config == 1) {
-            leftDrivePower = scaleMotorPower(-gamepad1.left_trigger/8);
-            rightDrivePower = scaleMotorPower(-gamepad1.right_trigger/8);
+            leftDrivePower = scaleMotorPower(gamepad1.left_trigger/8);
+            rightDrivePower = scaleMotorPower(gamepad1.right_trigger/8);
             if (gamepad1.left_bumper)
                 leftDrivePower = -leftDrivePower;
             if (gamepad1.right_bumper)
@@ -128,6 +170,23 @@ public class BigBerthaLostWeightTeleOp extends BigBerthaTelemetry {
         if (game1config == 3) {
             leftDrivePower = scaleMotorPower(-gamepad1.left_stick_y/8);
             rightDrivePower = scaleMotorPower(-gamepad1.right_stick_y/8);
+            if (gamepad1.right_bumper || gamepad1.left_bumper) {
+                chainHooksUpScale = scaleMotorPower(gamepad1.right_trigger);
+                clipMotorPositive(chainHooksUpScale = chainHooksUpScale / 4);
+                chainHooksDownScale = scaleMotorPower(-gamepad1.left_trigger);
+                clipMotorNegative(chainHooksDownScale = (chainHooksDownScale / 5) * 4);
+            }
+            if (gamepad1.right_bumper)
+                chainHooksPower = clipMotorPositive(chainHooksPower + chainHooksUpScale + chainHooksDownScale);
+            if (gamepad1.left_bumper)
+                chainHooksPower = clipMotorPositive(chainHooksPower + chainHooksUpScale + chainHooksDownScale);
+
+            if (gamepad1.right_bumper)
+                setChainHooksPower(chainHooksPower);
+            else if (gamepad1.left_bumper)
+                setChainHooksPower(-chainHooksPower);
+            else
+                setChainHooksPower (0);
         }
 
         if (game2config == 0) {
@@ -180,11 +239,6 @@ public class BigBerthaLostWeightTeleOp extends BigBerthaTelemetry {
         setSweeperPosition(sweeperPosition, backSweeperPosition);
         setLiftArmPower(leftArmPower, rightArmPower);
 
-        float liftUpScale = 0.0f;
-        float liftDownScale = 0.0f;
-        float chainHooksUpScale = 0.0f;
-        float chainHooksDownScale = 0.0f;
-
         if (gamepad2.dpad_up) {
             double bucketPower = 0.8;
             double bucketPosition = 0.8;
@@ -209,27 +263,6 @@ public class BigBerthaLostWeightTeleOp extends BigBerthaTelemetry {
             setBucketPower(0);
             setBucketPosition(0);
         }
-        if (!aux1ScaleOff) {
-            if (gamepad1.right_bumper || gamepad1.left_bumper) {
-                chainHooksUpScale = scaleMotorPower(gamepad1.right_trigger);
-                clipMotorPositive(chainHooksUpScale = chainHooksUpScale / 4);
-            }
-            if (gamepad1.right_bumper || gamepad1.left_bumper) {
-                chainHooksDownScale = scaleMotorPower(-gamepad1.left_trigger);
-                clipMotorNegative(chainHooksDownScale = (chainHooksDownScale / 5) * 4);
-            }
-        }
-        if (gamepad1.right_bumper)
-            chainHooksPower = clipMotorPositive(chainHooksPower + chainHooksUpScale + chainHooksDownScale);
-        if (gamepad1.left_bumper)
-            chainHooksPower = clipMotorPositive(chainHooksPower + chainHooksUpScale + chainHooksDownScale);
-
-        if (gamepad1.right_bumper)
-            setChainHooksPower(chainHooksPower);
-        else if (gamepad1.left_bumper)
-            setChainHooksPower(-chainHooksPower);
-        else
-            setChainHooksPower (0);
         //------------Servo Motors------------
         // The mPosition methods write the motor power values to the Servo
         // class, but the positions aren't applied until this method ends.

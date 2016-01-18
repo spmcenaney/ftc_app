@@ -133,10 +133,10 @@ public class BigBerthaLostWeightTeleOp extends BigBerthaTelemetry {
         float liftDownScale = 0.0f;
         float chainHooksUpScale = 0.0f;
         float chainHooksDownScale = 0.0f;
-        
+
         if (game1config == 0) {
-            leftDrivePower = scaleMotorPower(-gamepad1.left_stick_y/8);
-            rightDrivePower = scaleMotorPower(-gamepad1.right_stick_y/8);
+            leftDrivePower = scaleMotorPower(-gamepad1.left_stick_y/4*3);
+            rightDrivePower = scaleMotorPower(-gamepad1.right_stick_y/4*3);
             if (gamepad1.right_bumper || gamepad1.left_bumper) {
                 chainHooksUpScale = scaleMotorPower(gamepad1.right_trigger);
                 clipMotorPositive(chainHooksUpScale = chainHooksUpScale / 4);
@@ -156,20 +156,20 @@ public class BigBerthaLostWeightTeleOp extends BigBerthaTelemetry {
                 setChainHooksPower (0);
         }
         if (game1config == 1) {
-            leftDrivePower = scaleMotorPower(gamepad1.left_trigger/8);
-            rightDrivePower = scaleMotorPower(gamepad1.right_trigger/8);
+            leftDrivePower = scaleMotorPower(gamepad1.left_trigger/4*3);
+            rightDrivePower = scaleMotorPower(gamepad1.right_trigger/4*3);
             if (gamepad1.left_bumper)
                 leftDrivePower = -leftDrivePower;
             if (gamepad1.right_bumper)
                 rightDrivePower = -rightDrivePower;
         }
         if (game1config == 2) {
-            leftDrivePower = scaleMotorPower(-gamepad1.left_stick_y/8);
-            rightDrivePower = scaleMotorPower(-gamepad1.right_stick_y/8);
+            leftDrivePower = scaleMotorPower(-gamepad1.left_stick_y/4*3);
+            rightDrivePower = scaleMotorPower(-gamepad1.right_stick_y/4*3);
         }
         if (game1config == 3) {
-            leftDrivePower = scaleMotorPower(-gamepad1.left_stick_y/8);
-            rightDrivePower = scaleMotorPower(-gamepad1.right_stick_y/8);
+            leftDrivePower = scaleMotorPower(-gamepad1.left_stick_y/4*3);
+            rightDrivePower = scaleMotorPower(-gamepad1.right_stick_y/4*3);
             if (gamepad1.right_bumper || gamepad1.left_bumper) {
                 chainHooksUpScale = scaleMotorPower(gamepad1.right_trigger);
                 clipMotorPositive(chainHooksUpScale = chainHooksUpScale / 4);
@@ -200,8 +200,8 @@ public class BigBerthaLostWeightTeleOp extends BigBerthaTelemetry {
         // Obtain the current values of the joystick controllers.
         // The DC motors are scaled to make it easier to control them at slower speeds.
         // Note that x and y equal -1 when the joystick is pushed all of the way forward.
-        backLeftPower = scaleMotorPower(-gamepad1.left_stick_y/8);
-        backRightPower = scaleMotorPower(-gamepad1.right_stick_y/8);
+        backLeftPower = scaleMotorPower(-gamepad1.left_stick_y/4*3);
+        backRightPower = scaleMotorPower(-gamepad1.right_stick_y/4*3);
         float leftArmPower = scaleMotorPower(-gamepad2.left_stick_y);
         float rightArmPower = scaleMotorPower(-gamepad2.right_stick_y);
         if ((!(gamepad1.right_bumper || gamepad1.left_bumper)) || aux1ScaleOff) {
@@ -220,12 +220,12 @@ public class BigBerthaLostWeightTeleOp extends BigBerthaTelemetry {
             rightLiftPower = -rightLiftPower;
 
         if (gamepad1.left_stick_button) {
-            leftDrivePower = leftDrivePower * 8;
-            backLeftPower = backLeftPower * 8;
+            leftDrivePower = leftDrivePower/3*4;
+            backLeftPower = backLeftPower/3*4;
         }
         if (gamepad1.right_stick_button) {
-            rightDrivePower = rightDrivePower * 8;
-            backRightPower = backRightPower * 8;
+            rightDrivePower = rightDrivePower/3*4;
+            backRightPower = backRightPower/3*4;
         }
         if (gamepad2.left_stick_button)
             leftArmPower = leftArmPower / 2;
@@ -277,8 +277,8 @@ public class BigBerthaLostWeightTeleOp extends BigBerthaTelemetry {
             setHookPosition (1.0);
         else if (gamepad1.x)
             setHookPosition (0.0);
-        else
-            setHookPosition(0.5);
+        //else
+            //;setHookPosition(0.25);
 
         if (gamepad2.b)
             setManPosition (1.0);
@@ -291,8 +291,8 @@ public class BigBerthaLostWeightTeleOp extends BigBerthaTelemetry {
             setFlagPosition (1.0);
         else if (gamepad1.a)
             setFlagPosition (0.0);
-        else
-            setFlagPosition(0.5);
+        //else
+            //setFlagPosition(0.75);
         ////////////////////////////---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------setHookPosition (0.5
 
         //------------Telemetry------------

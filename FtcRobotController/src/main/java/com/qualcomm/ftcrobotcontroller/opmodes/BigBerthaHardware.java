@@ -93,7 +93,7 @@ public class BigBerthaHardware extends OpMode {
     double initSpinnerPower;
     //0.5 is off, 1 is forwards, and 0 is backwards
     private double initBucketDoorPosition = 0.5;
-    private double initHookPosition = 0.25;
+    private double initHookPosition = 0.125;
     private double initManPosition = 0.5;
     private double initFlagPosition = 1.0;
     private double initChainHooksPosition = 0.5;

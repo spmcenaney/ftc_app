@@ -135,8 +135,8 @@ public class BigBerthaLostWeightTeleOp extends BigBerthaTelemetry {
         float chainHooksDownScale = 0.0f;
 
         if (game1config == 0) {
-            leftDrivePower = scaleMotorPower(-gamepad1.left_stick_y/4*3);
-            rightDrivePower = scaleMotorPower(-gamepad1.right_stick_y/4*3);
+            leftDrivePower = scaleMotorPower(-gamepad1.left_stick_y/8*5);
+            rightDrivePower = scaleMotorPower(-gamepad1.right_stick_y/8*5);
             if (gamepad1.right_bumper || gamepad1.left_bumper) {
                 chainHooksUpScale = scaleMotorPower(gamepad1.right_trigger);
                 clipMotorPositive(chainHooksUpScale = chainHooksUpScale / 4);
@@ -156,20 +156,20 @@ public class BigBerthaLostWeightTeleOp extends BigBerthaTelemetry {
                 setChainHooksPower (0);
         }
         if (game1config == 1) {
-            leftDrivePower = scaleMotorPower(gamepad1.left_trigger/4*3);
-            rightDrivePower = scaleMotorPower(gamepad1.right_trigger/4*3);
+            leftDrivePower = scaleMotorPower(gamepad1.left_trigger/8*5);
+            rightDrivePower = scaleMotorPower(gamepad1.right_trigger/8*5);
             if (gamepad1.left_bumper)
                 leftDrivePower = -leftDrivePower;
             if (gamepad1.right_bumper)
                 rightDrivePower = -rightDrivePower;
         }
         if (game1config == 2) {
-            leftDrivePower = scaleMotorPower(-gamepad1.left_stick_y/4*3);
-            rightDrivePower = scaleMotorPower(-gamepad1.right_stick_y/4*3);
+            leftDrivePower = scaleMotorPower(-gamepad1.left_stick_y/8*5);
+            rightDrivePower = scaleMotorPower(-gamepad1.right_stick_y/8*5);
         }
         if (game1config == 3) {
-            leftDrivePower = scaleMotorPower(-gamepad1.left_stick_y/4*3);
-            rightDrivePower = scaleMotorPower(-gamepad1.right_stick_y/4*3);
+            leftDrivePower = scaleMotorPower(-gamepad1.left_stick_y/8*5);
+            rightDrivePower = scaleMotorPower(-gamepad1.right_stick_y/8*5);
             if (gamepad1.right_bumper || gamepad1.left_bumper) {
                 chainHooksUpScale = scaleMotorPower(gamepad1.right_trigger);
                 clipMotorPositive(chainHooksUpScale = chainHooksUpScale / 4);
@@ -200,8 +200,8 @@ public class BigBerthaLostWeightTeleOp extends BigBerthaTelemetry {
         // Obtain the current values of the joystick controllers.
         // The DC motors are scaled to make it easier to control them at slower speeds.
         // Note that x and y equal -1 when the joystick is pushed all of the way forward.
-        backLeftPower = scaleMotorPower(-gamepad1.left_stick_y/4*3);
-        backRightPower = scaleMotorPower(-gamepad1.right_stick_y/4*3);
+        backLeftPower = scaleMotorPower(-gamepad1.left_stick_y/8*5);
+        backRightPower = scaleMotorPower(-gamepad1.right_stick_y/8*5);
         float leftArmPower = scaleMotorPower(-gamepad2.left_stick_y);
         float rightArmPower = scaleMotorPower(-gamepad2.right_stick_y);
         if ((!(gamepad1.right_bumper || gamepad1.left_bumper)) || aux1ScaleOff) {
@@ -220,12 +220,12 @@ public class BigBerthaLostWeightTeleOp extends BigBerthaTelemetry {
             rightLiftPower = -rightLiftPower;
 
         if (gamepad1.left_stick_button) {
-            leftDrivePower = leftDrivePower/3*4;
-            backLeftPower = backLeftPower/3*4;
+            leftDrivePower = leftDrivePower/5*8;
+            backLeftPower = backLeftPower/5*8;
         }
         if (gamepad1.right_stick_button) {
-            rightDrivePower = rightDrivePower/3*4;
-            backRightPower = backRightPower/3*4;
+            rightDrivePower = rightDrivePower/5*8;
+            backRightPower = backRightPower/5*8;
         }
         if (gamepad2.left_stick_button)
             leftArmPower = leftArmPower / 2;
